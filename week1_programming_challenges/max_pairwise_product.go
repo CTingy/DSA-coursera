@@ -12,20 +12,17 @@ func maxPairwiseProduct(numbers []int) int {
 	maxIdx := 0
 	max := numbers[maxIdx]
 	for i := 1; i < len(numbers); i++ {
-		fmt.Println(i, numbers[i])
 		if numbers[i] > max {
 			maxIdx = i
 			max = numbers[i]
 		}
 	}
-	fmt.Println(maxIdx, max)
 	secMax := numbers[0]
 	for i := 1; i < len(numbers); i++ {
 		if numbers[i] > secMax && i != maxIdx {
 			secMax = numbers[i]
 		}
 	}
-	fmt.Println(secMax)
 	return max * secMax
 }
 
