@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func maxPairwiseProduct(numbers []int) int {
+func maxPairwiseProduct(numbers []int64) int64 {
 	maxIdx := 0
 	max := numbers[maxIdx]
 	for i := 1; i < len(numbers); i++ {
@@ -30,13 +30,13 @@ func main() {
 	var numLen int
 	fmt.Scanf("%d", &numLen)
 
-	var numbers []int
+	var numbers []int64
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Scan()
 	input := scanner.Text()
 	texts := strings.Split(input, " ")
 	for _, text := range texts {
-		number, _ := strconv.Atoi(text)
+		number, _ := strconv.ParseInt(text, 10, 64)
 		numbers = append(numbers, number)
 	}
 	fmt.Println(maxPairwiseProduct(numbers))
