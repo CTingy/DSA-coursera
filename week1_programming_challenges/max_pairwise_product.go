@@ -27,6 +27,9 @@ func maxPairwiseProduct(numbers []int64) int64 {
 }
 
 func maxPairwiseProductSwap(numbers []int64) int64 {
+	if len(numbers) == 0 || len(numbers) == 1 {
+		return int64(0)
+	}
 	for i := 1; i < len(numbers); i++ {
 		if numbers[i] > numbers[0] {
 			numbers[i], numbers[0] = numbers[0], numbers[i]
