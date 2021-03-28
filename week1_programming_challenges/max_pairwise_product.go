@@ -26,6 +26,20 @@ func maxPairwiseProduct(numbers []int64) int64 {
 	return max * secMax
 }
 
+func maxPairwiseProductSwap(numbers []int64) int64 {
+	for i := 1; i < len(numbers); i++ {
+		if numbers[i] > numbers[0] {
+			numbers[i], numbers[0] = numbers[0], numbers[i]
+		}
+	}
+	for i := 2; i < len(numbers); i++ {
+		if numbers[i] > numbers[1] {
+			numbers[i], numbers[1] = numbers[1], numbers[i]
+		}
+	}
+	return numbers[0] * numbers[1]
+}
+
 func main() {
 	var numLen int
 	fmt.Scanf("%d", &numLen)
@@ -39,5 +53,6 @@ func main() {
 		number, _ := strconv.ParseInt(text, 10, 64)
 		numbers = append(numbers, number)
 	}
-	fmt.Println(maxPairwiseProduct(numbers))
+	// fmt.Println(maxPairwiseProduct(numbers))
+	fmt.Println(maxPairwiseProductSwap(numbers))
 }
