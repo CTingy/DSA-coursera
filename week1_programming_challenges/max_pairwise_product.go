@@ -17,8 +17,8 @@ func maxPairwiseProduct(numbers []int64) int64 {
 			max = numbers[i]
 		}
 	}
-	secMax := numbers[0]
-	for i := 1; i < len(numbers); i++ {
+	secMax := int64(0)
+	for i := 0; i < len(numbers); i++ {
 		if numbers[i] > secMax && i != maxIdx {
 			secMax = numbers[i]
 		}
