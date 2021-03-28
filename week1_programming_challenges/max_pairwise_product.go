@@ -1,4 +1,4 @@
-// fail
+// Failed case #5/17: Wrong answer
 
 package main
 
@@ -34,12 +34,14 @@ func maxPairwiseProductSwap(numbers []int64) int64 {
 	}
 	for i := 1; i < len(numbers); i++ {
 		if numbers[i] > numbers[0] {
-			numbers[i], numbers[0] = numbers[0], numbers[i]
+			tmp1, tmp2 := numbers[0], numbers[i]
+			numbers[i], numbers[0] = tmp1, tmp2
 		}
 	}
 	for i := 2; i < len(numbers); i++ {
 		if numbers[i] > numbers[1] {
-			numbers[i], numbers[1] = numbers[1], numbers[i]
+			tmp1, tmp2 := numbers[1], numbers[i]
+			numbers[i], numbers[1] = tmp1, tmp2
 		}
 	}
 	return numbers[0] * numbers[1]
