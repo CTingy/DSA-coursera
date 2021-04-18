@@ -11,7 +11,4 @@ if __name__ == '__main__':
     input_list = [int(i) for i in input_str.split(' ')]
     input_list.sort()
     num_gcd = gcd(input_list[0], input_list[1])
-    if num_gcd == 1:
-        print(input_list[0] * input_list[1])
-    else:
-        print(input_list[0] * (input_list[1]/num_gcd))
+    print(int(input_list[0] * (input_list[1]/num_gcd)))
