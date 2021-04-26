@@ -30,7 +30,7 @@ func fractionalKnapsack(n int, totalW float64, valuesAndWeights [][]float64) flo
 		totalW -= valuesAndWeight[1]
 		res += valuesAndWeight[0]
 	}
-	return -1.0
+	return valuesAndWeights[0][0]
 }
 
 func main() {
