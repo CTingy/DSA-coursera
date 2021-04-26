@@ -7,9 +7,9 @@ import (
 
 func fractionalKnapsack(n int, totalW float64, valuesAndWeights [][]float64) float64 {
 	var fraction float64
-    var sortedFractions []float64
+	var sortedFractions []float64
 	var res float64
-    
+
 	// get fractions and sort
 	items := make(map[float64][]float64)
 	for i := 0; i < n; i++ {
@@ -24,8 +24,8 @@ func fractionalKnapsack(n int, totalW float64, valuesAndWeights [][]float64) flo
 	for i := 0; i < n; i++ {
 		fraction = sortedFractions[i]
 		valuesAndWeight := items[fraction]
-        if totalW < valuesAndWeight[1] {
-			return res + fraction * totalW
+		if totalW < valuesAndWeight[1] {
+			return res + fraction*totalW
 		}
 		totalW -= valuesAndWeight[1]
 		res += valuesAndWeight[0]

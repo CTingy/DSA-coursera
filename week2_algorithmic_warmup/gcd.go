@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func gcd(s int, l int) int {
-    for {
+	for {
 		r := l % s
 		if r == 0 {
 			return s

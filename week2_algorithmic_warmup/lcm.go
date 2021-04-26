@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func gcd(s int, l int) int {
-    for {
+	for {
 		r := l % s
 		if r == 0 {
 			return s
@@ -13,12 +13,12 @@ func gcd(s int, l int) int {
 }
 
 func main() {
-    var i, j, g int
+	var i, j, g int
 	fmt.Scanf("%d %d", &i, &j)
 	if i < j {
-        g = gcd(i, j)
+		g = gcd(i, j)
 	} else {
-        g = gcd(j, i)
+		g = gcd(j, i)
 	}
-	fmt.Println(i * (j/g))
+	fmt.Println(i * (j / g))
 }
