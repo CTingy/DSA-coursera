@@ -21,8 +21,29 @@ func quickSort(eles []int) {
 	quickSort(eles[j+1:]) // sort larger slice
 }
 
+// func main() {
+// 	a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
+// 	quickSort(a)
+// 	fmt.Println(a)
+// }
+
+func majorityElement(eles []int) int {
+	quickSort(eles)
+	// fmt.Println(eles)
+	if eles[0] == eles[len(eles)/2] {
+		return 1
+	}
+	return 0
+}
+
 func main() {
-	a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
-	quickSort(a)
-	fmt.Println(a)
+	var n, ele int
+	var eles []int
+
+	fmt.Scanln(&n)
+	for i := 0; i < n; i++ {
+		fmt.Scanf("%d", &ele)
+		eles = append(eles, ele)
+	}
+	fmt.Println(majorityElement(eles))
 }
