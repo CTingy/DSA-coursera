@@ -28,10 +28,15 @@ func quickSort(eles []int) {
 // }
 
 func majorityElement(eles []int) int {
+	windowLen := len(eles)/2 + 1
+	i := 0
 	quickSort(eles)
 	// fmt.Println(eles)
-	if eles[0] == eles[len(eles)/2] {
-		return 1
+	for i+windowLen-1 < len(eles) {
+		if eles[i] == eles[i+windowLen-1] {
+			return 1
+		}
+		i++
 	}
 	return 0
 }
