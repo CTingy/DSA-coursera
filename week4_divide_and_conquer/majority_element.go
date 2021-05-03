@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 func quickSort(eles []int) {
 	lenEles := len(eles)
@@ -30,8 +33,8 @@ func quickSort(eles []int) {
 func majorityElement(eles []int) int {
 	windowLen := len(eles)/2 + 1
 	i := 0
-	quickSort(eles)
-	// fmt.Println(eles)
+	// quickSort(eles)
+	sort.Ints(eles)
 	for i+windowLen-1 < len(eles) {
 		if eles[i] == eles[i+windowLen-1] {
 			return 1
