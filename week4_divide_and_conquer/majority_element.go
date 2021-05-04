@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	// "math/rand"
 	"sort"
+	// "time"
 )
 
 func quickSort(eles []int) {
@@ -23,12 +25,6 @@ func quickSort(eles []int) {
 	quickSort(eles[0:j])  // sort smaller slice
 	quickSort(eles[j+1:]) // sort larger slice
 }
-
-// func main() {
-// 	a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
-// 	quickSort(a)
-// 	fmt.Println(a)
-// }
 
 func majorityElement(eles []int) int {
 	windowLen := len(eles)/2 + 1
@@ -55,3 +51,35 @@ func main() {
 	}
 	fmt.Println(majorityElement(eles))
 }
+
+// stress test
+
+// func main() {
+// 	for {
+// 		var a, b []int
+
+// 		n := rand.Intn(100000)
+// 		for i := 0; i < n; i++ {
+// 			x := rand.Intn(1000000000)
+// 			a = append(a, x)
+// 			b = append(b, x)
+// 		}
+// 		quickSort(a)
+// 		sort.Ints(b)
+
+// 		for i := 0; i < n; i++ {
+// 			if a[i] != b[i] {
+// 				fmt.Println(a, b)
+// 				panic("")
+// 			}
+// 		}
+// 		time.Sleep(1 * time.Millisecond)
+// 	}
+// }
+
+// check sort
+// func main() {
+// 	a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
+// 	quickSort(a)
+// 	fmt.Println(a)
+// }
