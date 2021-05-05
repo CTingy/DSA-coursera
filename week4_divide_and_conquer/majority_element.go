@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	// "math/rand"
-	"sort"
+	// "sort"
 	// "time"
 )
 
@@ -12,16 +11,16 @@ func quickSort(eles []int) {
 	if lenEles <= 1 {
 		return
 	}
-	pivot := eles[0]
-	i, j := 1, 0
-	for i < lenEles {
+	pivot := eles[lenEles-1]
+	i, j := 0, 0
+	for i < lenEles-1 {
 		if eles[i] < pivot {
-			eles[i], eles[j+1] = eles[j+1], eles[i]
+			eles[i], eles[j] = eles[j], eles[i]
 			j++
 		}
 		i++
 	}
-	eles[0], eles[j] = eles[j], eles[0]
+	eles[lenEles-1], eles[j] = eles[j], eles[lenEles-1]
 	quickSort(eles[0:j])  // sort smaller slice
 	quickSort(eles[j+1:]) // sort larger slice
 }
@@ -29,8 +28,8 @@ func quickSort(eles []int) {
 func majorityElement(eles []int) int {
 	windowLen := len(eles)/2 + 1
 	i := 0
-	// quickSort(eles)
-	sort.Ints(eles)
+	quickSort(eles)
+	// sort.Ints(eles)
 	for i+windowLen-1 < len(eles) {
 		if eles[i] == eles[i+windowLen-1] {
 			return 1
@@ -79,7 +78,8 @@ func main() {
 
 // check sort
 // func main() {
-// 	a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
+// 	// a := []int{6, 4, 2, 3, 9, 8, 9, 4, 7, 6, 1}
+// 	a := []int{5, 3, 2, 4, 8, 4}
 // 	quickSort(a)
 // 	fmt.Println(a)
 // }

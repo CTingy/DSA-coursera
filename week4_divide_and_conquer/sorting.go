@@ -7,27 +7,27 @@ func threePartitionQuickSort(eles []int) {
 	if lenEles <= 1 {
 		return
 	}
-	pivot := eles[0]
-	i, j, k := 1, 0, 0
-	for i < lenEles {
+	pivot := eles[lenEles-1]
+	i, j, k := 0, 0, lenEles-1
+	for i < k {
 		if eles[i] < pivot {
-			eles[i], eles[j+1] = eles[j+1], eles[i]
+			eles[i], eles[j] = eles[j], eles[i]
 			j++
 		} else if eles[i] == pivot {
-			eles[i], eles[k+1] = eles[k+1], eles[i]
+			eles[i], eles[k-1] = eles[k-1], eles[i]
+			k--
 		}
 		i++
 	}
-	for {
-		eles[k], eles[j] = eles[j], eles[k]
-		if k == 0 {
-			break
-		}
-		k--
-		j--
+
+	lenPivot := lenEles - k
+	for k < lenEles {
+		eles[j], eles[k] = eles[k], eles[j]
+		j++
+		k++
 	}
-	threePartitionQuickSort(eles[0:j])    // sort smaller slice
-	threePartitionQuickSort(eles[j+k+1:]) // sort larger slice
+	threePartitionQuickSort(eles[:j-lenPivot]) // sort smaller slice
+	threePartitionQuickSort(eles[j:])          // sort larger slice
 }
 
 func main() {
