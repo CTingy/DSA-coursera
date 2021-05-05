@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func Fibonacci(n int) int {
-    var s []int
+	var s []int
 	s = append(s, 0)
 	s = append(s, 1)
 	for i := 2; i <= n; i++ {
@@ -15,5 +15,5 @@ func Fibonacci(n int) int {
 func main() {
 	var i int
 	fmt.Scanf("%d", &i)
-    fmt.Println(Fibonacci(i))
+	fmt.Println(Fibonacci(i))
 }

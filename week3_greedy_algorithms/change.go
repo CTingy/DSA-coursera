@@ -15,7 +15,7 @@ func getChange(m int) int {
 		i += 1
 	}
 	return n
-} 
+}
 
 func main() {
 	var input int
