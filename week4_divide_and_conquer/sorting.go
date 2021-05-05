@@ -13,11 +13,13 @@ func threePartitionQuickSort(eles []int) {
 		if eles[i] < pivot {
 			eles[i], eles[j] = eles[j], eles[i]
 			j++
+            i++
 		} else if eles[i] == pivot {
 			eles[i], eles[k-1] = eles[k-1], eles[i]
 			k--
+		} else {
+			i++
 		}
-		i++
 	}
 
 	lenPivot := lenEles - k
