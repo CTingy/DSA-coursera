@@ -6,30 +6,61 @@ import (
 	// "time"
 )
 
-func quickSort(eles []int) {
+// func quickSort(eles []int) {
+// 	lenEles := len(eles)
+// 	if lenEles <= 1 {
+// 		return
+// 	}
+// 	pivot := eles[lenEles-1]
+// 	i, j := 0, 0
+// 	for i < lenEles-1 {
+// 		if eles[i] < pivot {
+// 			eles[i], eles[j] = eles[j], eles[i]
+// 			j++
+// 		}
+// 		i++
+// 	}
+// 	eles[lenEles-1], eles[j] = eles[j], eles[lenEles-1]
+// 	quickSort(eles[0:j])  // sort smaller slice
+// 	quickSort(eles[j+1:]) // sort larger slice
+// }
+
+func threePartitionQuickSort(eles []int) {
 	lenEles := len(eles)
 	if lenEles <= 1 {
 		return
 	}
 	pivot := eles[lenEles-1]
-	i, j := 0, 0
-	for i < lenEles-1 {
+	i, j, k := 0, 0, lenEles-1
+	for i < k {
 		if eles[i] < pivot {
 			eles[i], eles[j] = eles[j], eles[i]
 			j++
+			i++
+		} else if eles[i] == pivot {
+			eles[i], eles[k-1] = eles[k-1], eles[i]
+			k--
+		} else {
+			i++
 		}
-		i++
 	}
-	eles[lenEles-1], eles[j] = eles[j], eles[lenEles-1]
-	quickSort(eles[0:j])  // sort smaller slice
-	quickSort(eles[j+1:]) // sort larger slice
+
+	lenPivot := lenEles - k
+	for k < lenEles {
+		eles[j], eles[k] = eles[k], eles[j]
+		j++
+		k++
+	}
+	threePartitionQuickSort(eles[:j-lenPivot]) // sort smaller slice
+	threePartitionQuickSort(eles[j:])          // sort larger slice
 }
 
 func majorityElement(eles []int) int {
 	windowLen := len(eles)/2 + 1
 	i := 0
-	quickSort(eles)
 	// sort.Ints(eles)
+	// quickSort(eles)
+	threePartitionQuickSort(eles)
 	for i+windowLen-1 < len(eles) {
 		if eles[i] == eles[i+windowLen-1] {
 			return 1
