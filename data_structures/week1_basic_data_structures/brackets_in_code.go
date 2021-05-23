@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
 // TODO: create an interface pop for popInt
@@ -67,10 +69,13 @@ func getUnmatchedPosition(str string) int {
 }
 
 func main() {
-	var input string
-	fmt.Scanln(&input)
+	// var input string
+	// fmt.Scanf("%s", &input)
 
-	position := getUnmatchedPosition(input)
+	reader := bufio.NewReaderSize(os.Stdin, 65536)
+	text, _ := reader.ReadString('\n')
+
+	position := getUnmatchedPosition(text)
 	if position == 0 {
 		fmt.Println("Success")
 	} else {
