@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// TODO: create an interface pop for popInt
 func pop(slice []string) (string, []string) {
 	lastItem := ""
 	popedSlice := []string{}
@@ -16,9 +17,22 @@ func pop(slice []string) (string, []string) {
 	return lastItem, popedSlice
 }
 
+func popInt(slice []int) (int, []int) {
+	lastItem := 0
+	popedSlice := []int{}
+	if len(slice) > 0 {
+		lastItem = slice[len(slice)-1]
+		if len(slice) >= 2 {
+			popedSlice = append(popedSlice, slice[:len(slice)-1]...)
+		}
+	}
+	return lastItem, popedSlice
+}
+
 func getUnmatchedPosition(str string) int {
 	bracketsMap := make(map[string]string)
 	stack := []string{}
+	popItem := ""
 	bracketsMap["("] = ")"
 	bracketsMap["["] = "]"
 	bracketsMap["{"] = "}"
@@ -28,25 +42,28 @@ func getUnmatchedPosition(str string) int {
 	backBracketMap["]"] = true
 	backBracketMap["}"] = true
 
-	unmatchedPosition := 0
+	positions := []int{}
 
 	for i, s := range str {
 		s := string(s) // original s is rune type
 		backBracket, exists := bracketsMap[s]
 		if exists {
 			stack = append(stack, backBracket)
+			positions = append(positions, i+1)
 			continue
 		}
 		if backBracketMap[s] {
-			popItem, popedSlice := pop(stack)
+			popItem, stack = pop(stack)
 			if popItem != s {
-				unmatchedPosition = i + 1
-				break
+				return i + 1
 			}
-			stack = popedSlice
+			_, positions = popInt(positions)
 		}
 	}
-	return unmatchedPosition
+	if len(stack) == 0 {
+		return 0
+	}
+	return positions[len(positions)-1]
 }
 
 func main() {
