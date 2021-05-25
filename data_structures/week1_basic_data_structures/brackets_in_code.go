@@ -6,7 +6,6 @@ import (
 	"os"
 )
 
-// TODO: create an interface pop for popInt
 func pop(slice []string) (string, []string) {
 	lastItem := ""
 	popedSlice := []string{}
@@ -68,13 +67,27 @@ func getUnmatchedPosition(str string) int {
 	return positions[len(positions)-1]
 }
 
-func main() {
-	// var input string
-	// fmt.Scanf("%s", &input)
+func ReadLine(reader *bufio.Reader) (string, error) {
+    result := ""
+    for {
+        line, isPrefix, err := reader.ReadLine()
+        if err != nil {
+            return result, err
+        }
+        result += string(line)
+        if !isPrefix {
+            return result, nil
+        }
+    }
+}
 
-	reader := bufio.NewReaderSize(os.Stdin, 10000000)
-	// os.Stdin would fail to accept more than 1023 characters
-	text, _ := reader.ReadString('\n')
+func main() {
+
+	reader := bufio.NewReaderSize(os.Stdin, 65536)
+	text, err := ReadLine(reader)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	position := getUnmatchedPosition(text)
 	if position == 0 {
