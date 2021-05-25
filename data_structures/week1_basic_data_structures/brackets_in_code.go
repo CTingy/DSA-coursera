@@ -72,7 +72,7 @@ func main() {
 	// var input string
 	// fmt.Scanf("%s", &input)
 
-	reader := bufio.NewReaderSize(os.Stdin, 65536)
+	reader := bufio.NewReaderSize(os.Stdin, 10000000)
 	// os.Stdin would fail to accept more than 1023 characters
 	text, _ := reader.ReadString('\n')
 
