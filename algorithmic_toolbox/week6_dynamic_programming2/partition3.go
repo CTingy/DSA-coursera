@@ -18,14 +18,14 @@ func threePartition(total int, eles []int) int {
 		}
 		partitionCount--
 	}
-	if len(eles) == 0 {
+	if len(eles) == 0 && canPartition {
 		return 1
 	}
 	return 0
 }
 
-// case example: 7 2 2 2 2 2 2 2 3, res: wrong
-// case example: 2 1 4 4 4 6, res: wrong
+// case example: 9 & 7 2 2 2 2 2 2 2 3, res: wrong
+// case example: 6 & 2 1 4 4 4 6, res: wrong
 // 2 partition ref: http://thisthread.blogspot.com/2018/02/2-partition-problem.html
 func partition(value int, eles []int) (bool, []int) {
 	// init DP 2D array
@@ -52,8 +52,10 @@ func partition(value int, eles []int) (bool, []int) {
 	tmpVal := value
 	for j := 1; j <= len(eles); j++ {
 		for dp[tmpVal][j] && tmpVal > 0 && j > 0 {
-			selectedIdx[j-1] = true
-			tmpVal -= eles[j-1]
+			if !dp[tmpVal][j-1] {
+				selectedIdx[j-1] = true
+				tmpVal -= eles[j-1]
+			}
 			j--
 		}
 	}
