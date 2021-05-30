@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
 func nPartition(n int, total int, eles []int) int {
@@ -12,7 +13,7 @@ func nPartition(n int, total int, eles []int) int {
 	}
 	for partitionCount > 0 {
 		canPartition, eles = partition(total / n, eles)
-		fmt.Println(canPartition, eles)
+		// fmt.Println(canPartition, eles)
 		if !canPartition {
 			return 0
 		}
@@ -78,6 +79,17 @@ func main() {
 		total += ele
 		eles = append(eles, ele)
 	}
+	sort.Slice(eles, func(i, j int) bool {
+		return eles[i] > eles[j]
+	})
 	fmt.Println(nPartition(3, total, eles))
 	// partition(total/3, eles)
 }
+
+// func main() {
+//     s := []int{8, 2, 6, 3, 1, 4} 
+//     sort.Slice(s, func(i, j int) bool {
+//         return s[i] > s[j]
+//     })
+//     fmt.Println(s)  // [8 6 4 3 2 1]
+// }

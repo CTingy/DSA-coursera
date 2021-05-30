@@ -4,7 +4,7 @@ def n_partition(n, total, elements):
     count = n
     while count:
         can_partition, elements = partition(total//n, elements)
-        print(can_partition, elements)
+        # print(can_partition, elements)
         if not can_partition:
             return 0
         count -= 1
@@ -48,4 +48,4 @@ if __name__ == '__main__':
     input()
     elements = [int(x) for x in input().split(' ')]
     elements.sort()
-    print(n_partition(4, sum(elements), elements[::-1]))
+    print(n_partition(3, sum(elements), elements[::-1]))
