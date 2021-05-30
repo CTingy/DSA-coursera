@@ -18,10 +18,7 @@ func threePartition(total int, eles []int) int {
 		}
 		partitionCount--
 	}
-	if len(eles) == 0 && canPartition {
-		return 1
-	}
-	return 0
+	return 1
 }
 
 // case example: 9 & 7 2 2 2 2 2 2 2 3, res: wrong
