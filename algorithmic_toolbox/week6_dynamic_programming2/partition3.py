@@ -42,6 +42,8 @@ def partition(value, elements):
     return dp[value][len(elements)], new_elements
 
 
+# kw: DFS
+# ref: https://leetcode.com/problems/partition-to-k-equal-sum-subsets/discuss/?currentPage=1&orderBy=most_relevant&query=python
 def k_partition(nums, k):
     target, m = divmod(sum(nums), k)
     if m: 
