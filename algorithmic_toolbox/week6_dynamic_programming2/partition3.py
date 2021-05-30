@@ -1,13 +1,13 @@
-def three_partition(total, elements):
-    if total % 3 != 0:
+def n_partition(n, total, elements):
+    if total % n != 0:
         return 0
-    number = 3
-    while number:
-        can_partition, elements = partition(total//3, elements)
-        # print(can_partition, elements)
+    count = n
+    while count:
+        can_partition, elements = partition(total//n, elements)
+        print(can_partition, elements)
         if not can_partition:
             return 0
-        number -= 1
+        count -= 1
     return 1
 
 
@@ -42,7 +42,10 @@ def partition(value, elements):
     return dp[value][len(elements)], new_elements
 
 
+# [4,4,6,2,3,8,10,2,10,7]
+# 4
 if __name__ == '__main__':
     input()
     elements = [int(x) for x in input().split(' ')]
-    print(three_partition(sum(elements), elements))
+    elements.sort()
+    print(n_partition(4, sum(elements), elements[::-1]))

@@ -4,15 +4,14 @@ import (
 	"fmt"
 )
 
-func threePartition(total int, eles []int) int {
+func nPartition(n int, total int, eles []int) int {
 	canPartition := false
-	partitionCount := 3
-	if total%partitionCount != 0 {
+	partitionCount := n
+	if total%n != 0 {
 		return 0
 	}
-	value := total / partitionCount
 	for partitionCount > 0 {
-		canPartition, eles = partition(value, eles)
+		canPartition, eles = partition(total / n, eles)
 		fmt.Println(canPartition, eles)
 		if !canPartition {
 			return 0
@@ -24,6 +23,7 @@ func threePartition(total int, eles []int) int {
 
 // case example: 9 & 7 2 2 2 2 2 2 2 3, res: wrong
 // case example: 6 & 2 1 4 4 4 6, res: wrong
+// 4 [4,4,6,2,3,8,10,2,10,7], res: correct
 // 2 partition ref: http://thisthread.blogspot.com/2018/02/2-partition-problem.html
 func partition(value int, eles []int) (bool, []int) {
 	// init DP 2D array
@@ -78,6 +78,6 @@ func main() {
 		total += ele
 		eles = append(eles, ele)
 	}
-	fmt.Println(threePartition(total, eles))
+	fmt.Println(nPartition(3, total, eles))
 	// partition(total/3, eles)
 }
