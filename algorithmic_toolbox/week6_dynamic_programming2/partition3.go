@@ -5,21 +5,24 @@ import (
 	"sort"
 )
 
-func nPartition(n int, total int, eles []int) int {
+func nPartition(n int, total int, eles []int) bool {
+	sort.Slice(eles, func(i, j int) bool {
+		return eles[i] > eles[j]
+	})
 	canPartition := false
 	partitionCount := n
 	if total%n != 0 {
-		return 0
+		return false
 	}
 	for partitionCount > 0 {
 		canPartition, eles = partition(total / n, eles)
 		// fmt.Println(canPartition, eles)
 		if !canPartition {
-			return 0
+			return false
 		}
 		partitionCount--
 	}
-	return 1
+	return true
 }
 
 // case example: 9 & 7 2 2 2 2 2 2 2 3, res: wrong
@@ -50,7 +53,7 @@ func partition(value int, eles []int) (bool, []int) {
 	selectedIdx := make(map[int]bool)
 	tmpVal := value
 	for j := 1; j <= len(eles); j++ {
-		for tmpVal > 0 && j > 0 && dp[tmpVal][j] {
+		for tmpVal >= 0 && j >= 1 && dp[tmpVal][j] {
 			if !dp[tmpVal][j-1] {
 				selectedIdx[j-1] = true
 				tmpVal -= eles[j-1]
@@ -79,11 +82,13 @@ func main() {
 		total += ele
 		eles = append(eles, ele)
 	}
-	sort.Slice(eles, func(i, j int) bool {
-		return eles[i] > eles[j]
-	})
-	fmt.Println(nPartition(3, total, eles))
+    res := nPartition(3, total, eles)
 	// partition(total/3, eles)
+	if res {
+		fmt.Println(1)
+	} else {
+		fmt.Println(0)
+	}
 }
 
 // func main() {
