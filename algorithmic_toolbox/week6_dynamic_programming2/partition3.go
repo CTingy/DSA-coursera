@@ -51,12 +51,10 @@ func partition(value int, eles []int) (bool, []int) {
 	selectedIdx := make(map[int]bool)
 	tmpVal := value
 	for j := 1; j <= len(eles); j++ {
-		parRes := dp[value][j]
-		for parRes && tmpVal > 0 {
+		for dp[tmpVal][j] && tmpVal > 0 && j > 0 {
 			selectedIdx[j-1] = true
 			tmpVal -= eles[j-1]
 			j--
-			parRes = dp[tmpVal][j]
 		}
 	}
 	// fmt.Println(selectedIdx)
