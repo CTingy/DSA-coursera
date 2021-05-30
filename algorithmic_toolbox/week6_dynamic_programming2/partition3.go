@@ -8,20 +8,20 @@ func threePartition(total int, eles []int) int {
 	canPartition := false
 	partitionCount := 3
 	if total%partitionCount != 0 {
-		return 1
+		return 0
 	}
 	value := total / partitionCount
 	for partitionCount > 0 {
 		canPartition, eles = partition(value, eles)
 		if !canPartition {
-			return 1
+			return 0
 		}
 		partitionCount--
 	}
 	if len(eles) == 0 {
-		return 0
+		return 1
 	}
-	return 1
+	return 0
 }
 
 // case example: 7 2 2 2 2 2 2 2 3, res: wrong
@@ -44,9 +44,29 @@ func partition(value int, eles []int) (bool, []int) {
 				}
 			}
 		}
-		fmt.Println(dp[i])
+		// fmt.Println(dp[i])
 	}
-	return dp[value+1][len(eles)+1], eles
+
+	// rule out selected values
+	selectedIdx := make(map[int]bool)
+	tmpVal := value
+	for j := 1; j <= len(eles); j++ {
+		parRes := dp[value][j]
+		for parRes && tmpVal > 0 {
+			selectedIdx[j-1] = true
+			tmpVal -= eles[j-1]
+			j--
+			parRes = dp[tmpVal][j]
+		}
+	}
+	// fmt.Println(selectedIdx)
+	newEles := []int{}
+	for i, ele := range eles {
+		if !selectedIdx[i] {
+			newEles = append(newEles, ele)
+		}
+	}
+	return dp[value][len(eles)], newEles
 }
 
 func main() {
@@ -60,6 +80,6 @@ func main() {
 		total += ele
 		eles = append(eles, ele)
 	}
-	//fmt.Println(threePartition(total, eles))
-	partition(total/3, eles)
+	fmt.Println(threePartition(total, eles))
+	// partition(total/3, eles)
 }
