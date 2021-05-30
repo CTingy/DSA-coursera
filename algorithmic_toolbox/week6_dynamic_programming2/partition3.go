@@ -13,6 +13,7 @@ func threePartition(total int, eles []int) int {
 	value := total / partitionCount
 	for partitionCount > 0 {
 		canPartition, eles = partition(value, eles)
+		fmt.Println(canPartition, eles)
 		if !canPartition {
 			return 0
 		}
@@ -48,7 +49,7 @@ func partition(value int, eles []int) (bool, []int) {
 	selectedIdx := make(map[int]bool)
 	tmpVal := value
 	for j := 1; j <= len(eles); j++ {
-		for dp[tmpVal][j] && tmpVal > 0 && j > 0 {
+		for tmpVal > 0 && j > 0 && dp[tmpVal][j] {
 			if !dp[tmpVal][j-1] {
 				selectedIdx[j-1] = true
 				tmpVal -= eles[j-1]

@@ -4,6 +4,7 @@ def three_partition(total, elements):
     number = 3
     while number:
         can_partition, elements = partition(total//3, elements)
+        # print(can_partition, elements)
         if not can_partition:
             return 0
         number -= 1
@@ -24,19 +25,19 @@ def partition(value, elements):
                 if value_diff > 0 and dp[value_diff][j-1]:
                     dp[i][j] = True
     
-    selected_elements = set()
+    selected_idx = set()
     temp_value = value
     for j in range(1, len(elements)+1):
         while temp_value and j and dp[temp_value][j]:
             if not dp[temp_value][j-1]:
-                selected_elements.add(j-1)
+                selected_idx.add(j-1)
                 temp_value -= elements[j-1]
             j -= 1
     
     new_elements = []
-    for element in elements:
-        if element not in selected_elements:
-            new_elements.append(element)
+    for j in range(len(elements)):
+        if j not in selected_idx:
+            new_elements.append(elements[j])
 
     return dp[value][len(elements)], new_elements
 
