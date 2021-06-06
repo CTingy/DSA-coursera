@@ -4,9 +4,9 @@ import (
 	"fmt"
 )
 
-func shiftDown(numbers []int, i int) {
+func shiftDown(numbers []int, i int, swaps [][]int) [][]int {
 	if len(numbers) == 1 {
-		return
+		return swaps
 	}
 	maxIdx := i
 	rightIdx := 2*i + 1
@@ -19,16 +19,18 @@ func shiftDown(numbers []int, i int) {
 	}
 	if maxIdx != i {
 		numbers[i], numbers[maxIdx] = numbers[maxIdx], numbers[i]
-		fmt.Println(i, maxIdx)
-		shiftDown(numbers, maxIdx)
+		// fmt.Println(i, maxIdx)
+		swaps = shiftDown(numbers, maxIdx, append(swaps, []int{i, maxIdx}))
 	}
-	return
+	return swaps
 }
 
-func heapSort(n int, numbers []int) {
+func heapSort(n int, numbers []int) [][]int {
+	swaps := [][]int{}
 	for i := n/2 - 1; i >= 0; i-- {
-		shiftDown(numbers, i)
+		swaps = shiftDown(numbers, i, swaps)
 	}
+	return swaps
 }
 
 func main() {
@@ -41,5 +43,9 @@ func main() {
 		fmt.Scanf("%d", &number)
 		numbers = append(numbers, number)
 	}
-	heapSort(n, numbers)
+	swaps := heapSort(n, numbers)
+	fmt.Println(len(swaps))
+	for _, swap := range swaps {
+		fmt.Println(swap[0], swap[1])
+	}
 }
