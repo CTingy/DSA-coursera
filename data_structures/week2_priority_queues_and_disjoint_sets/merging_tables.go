@@ -16,12 +16,14 @@ func max(values []int) int {
 
 func find(parents []int, i int) int {
 	for i != parents[i] {
-		i = parents[i]
+		// i = parents[i]
+		// need to use path compression, otherwise: time limit exceeded
+		i = find(parents, parents[i])
 	}
 	return i
 }
 
-func unionQuery(tableNum int, tables []int, queries [][]int) []int {
+func execQuery(tableNum int, tables []int, queries [][]int) []int {
 	// init parent set
 	var parents, results []int
 	for i := 0; i < tableNum; i++ {
@@ -58,7 +60,7 @@ func main() {
 	}
 
 	// execute
-	results := unionQuery(tableNum, tables, queries)
+	results := execQuery(tableNum, tables, queries)
 	for _, result := range results {
 		fmt.Println(result)
 	}
