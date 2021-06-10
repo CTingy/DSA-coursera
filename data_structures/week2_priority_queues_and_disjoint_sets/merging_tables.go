@@ -14,6 +14,18 @@ func max(values []int) int {
 	return maxVal
 }
 
+func unionByFoundIdx(parents, ranks []int, i, j int) ([]int, []int) {
+	if ranks[i] > ranks[j] {
+		parents[j] = i
+	} else {
+		parents[i] = j
+		if ranks[i] == ranks[j] {
+			ranks[j] += 1
+		}
+	}
+	return parents, ranks
+}
+
 func find(parents []int, i int) int {
 	for i != parents[i] {
 		// i = parents[i]
@@ -25,19 +37,21 @@ func find(parents []int, i int) int {
 
 func execQuery(tableNum int, tables []int, queries [][]int) []int {
 	// init parent set
-	var parents, results []int
+	var parents, results, ranks []int
 	for i := 0; i < tableNum; i++ {
 		parents = append(parents, i)
+		ranks = append(ranks, 0)
 	}
 	for _, query := range queries {
 		destination, source := find(parents, query[0]), find(parents, query[1])
 		if destination != source {
-			tables[destination] += tables[source]
-			tables[source] = 0
-			parents[source] = destination
+			// make nodes on the same path have the same value
+			totalValues := tables[destination] + tables[source]
+			tables[source], tables[destination] = totalValues, totalValues
+			parents, ranks = unionByFoundIdx(parents, ranks, destination, source)
 		}
 		results = append(results, max(tables))
-		// fmt.Println(tables)
+	    // fmt.Println(tables, ranks, parents)
 	}
 	return results
 }
