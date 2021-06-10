@@ -4,16 +4,6 @@ import (
 	"fmt"
 )
 
-func max(values []int) int {
-	maxVal := 0
-	for _, i := range values {
-		if i > maxVal {
-			maxVal = i
-		}
-	}
-	return maxVal
-}
-
 func unionByFoundIdx(parents, ranks []int, i, j int) ([]int, []int) {
 	if ranks[i] > ranks[j] {
 		parents[j] = i
@@ -36,12 +26,17 @@ func find(parents []int, i int) int {
 }
 
 func execQuery(tableNum int, tables []int, queries [][]int) []int {
-	// init parent set
+	// init parent set and find max table value
 	var parents, results, ranks []int
+	maxVal := 0
 	for i := 0; i < tableNum; i++ {
 		parents = append(parents, i)
 		ranks = append(ranks, 0)
+		if tables[i] > maxVal {
+			maxVal = tables[i]
+		}
 	}
+
 	for _, query := range queries {
 		destination, source := find(parents, query[0]), find(parents, query[1])
 		if destination != source {
@@ -49,8 +44,11 @@ func execQuery(tableNum int, tables []int, queries [][]int) []int {
 			totalValues := tables[destination] + tables[source]
 			tables[source], tables[destination] = totalValues, totalValues
 			parents, ranks = unionByFoundIdx(parents, ranks, destination, source)
+			if totalValues > maxVal {
+				maxVal = totalValues
+			}
 		}
-		results = append(results, max(tables))
+		results = append(results, maxVal)
 	    // fmt.Println(tables, ranks, parents)
 	}
 	return results
