@@ -49,6 +49,8 @@ func (hc hashChain) check(key int) {
 			s += fmt.Sprintf("%s ", value)
 		}
 		fmt.Println(s)
+	} else {
+		fmt.Println("")
 	}
 }
 
