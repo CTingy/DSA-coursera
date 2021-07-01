@@ -35,6 +35,9 @@ func H(s string, m int) int {
 }
 
 func (hc hashChain) add(key int, value string) {
+	if hc.find(value) {
+		return
+	}
 	hc.chains[key] = append([]string{value}, hc.chains[key]...)
 }
 
@@ -49,16 +52,15 @@ func (hc hashChain) check(key int) {
 	}
 }
 
-func (hc hashChain) find(content string) {
+func (hc hashChain) find(content string) bool {
 	for _, chain := range hc.chains {
 		for _, value := range chain {
 			if value == content {
-				fmt.Println("yes")
-				return
+				return true
 			}
 		}
 	}
-	fmt.Println("no")
+	return false
 }
 
 func (hc hashChain) del(content string) {
@@ -78,11 +80,14 @@ func execQuery(hc hashChain, q query) {
 		key, _ := strconv.Atoi(q.content)
 		hc.check(key)
 	} else if q.action == "find" {
-		hc.find(q.content)
+		if hc.find(q.content) {
+			fmt.Println("yes")
+		} else {
+			fmt.Println("no")
+		}
 	} else if q.action == "del" {
 		hc.del(q.content)
 	}
-
 }
 
 func main() {
