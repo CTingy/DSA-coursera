@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"strconv"
 )
 
 const (
-	x = 263
-	p = 1000000007
+	x = int64(263)
+	p = int64(1000000007)
 )
 
 type query struct {
@@ -25,13 +24,21 @@ func RemoveIndex(s []string, index int) []string {
 	return append(s[:index], s[index+1:]...)
 }
 
-func H(s string, m int) int {
-	res, power := 0, 0
-	for idx, char := range s {
-		power = int(math.Pow(x, float64(idx)))
-		res = (res + int(char)*power) % p
+func pow(base int64, power int) int64 {
+	res := int64(1)
+	for i := 1; i <= power; i++ {
+		res *= base
 	}
-	return res % m
+	return res
+}
+
+func H(s string, m int) int {
+	var res int64
+	for idx, char := range s {
+		basePower := pow(x, idx)
+		res = (res + int64(char)*basePower) % p
+	}
+	return int(res % int64(m))
 }
 
 func (hc hashChain) add(key int, value string) {
