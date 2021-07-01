@@ -1,3 +1,5 @@
+# pass all test cases
+
 X = 263
 PRIME_NUMBER = 1000000007
 
@@ -14,22 +16,22 @@ class HashChain:
         self.size = m
         self.chains = [[] for _ in range(m)]
 
-    def add(self, key, value):
+    def add(self, value):
+        key = self.H(value)
         if self.find(value):
             return
         self.chains[key] = [value] + self.chains[key][:]
 
     def delete(self, value):
-        for i, chain in enumerate(self.chains):
-            for j, ele in enumerate(chain):
-                if ele == value:
-                    self.chains[i].pop(j)
-                    return
+        key = self.H(value)
+        for i, ele in enumerate(self.chains[key]):
+            if ele == value:
+                self.chains[key].pop(i)
+                return
 
     def find(self, value):
-        for chain in self.chains:
-            if value in chain:
-                return True
+        if value in self.chains[self.H(value)]:
+            return True
         return False
 
     def check(self, key):
@@ -38,17 +40,16 @@ class HashChain:
         else:
             print('')
 
-
-def H(s, m):
-    res = 0
-    for i, char in enumerate(s):
-        res = (res + ord(char) * (X**i)) % PRIME_NUMBER
-    return res % m
+    def H(self, s):
+        res = 0
+        for i, char in enumerate(s):
+            res = (res + ord(char) * (X**i)) % PRIME_NUMBER
+        return res % self.size
 
 
 def execute_query(hash_chain, query):
     if query.action == 'add':
-        hash_chain.add(H(query.content, hash_chain.size), query.content)
+        hash_chain.add(query.content)
     elif query.action == 'check':
         hash_chain.check(int(query.content))
     elif query.action == 'find':
