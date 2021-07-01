@@ -36,7 +36,7 @@ func H(s string, m int) int {
 	var res int64
 	for idx, char := range s {
 		basePower := pow(x, idx)
-		res = (res + int64(char)*basePower) % p
+		res = ((res + int64(char)*basePower) % p + p) % p
 	}
 	return int(res % int64(m))
 }
