@@ -5,6 +5,9 @@ import (
 	"strconv"
 )
 
+// Failed case #6/46: Wrong answer
+//  (Time used: 0.00/1.50, memory used: 26234880/536870912.)
+
 const (
 	x = int64(263)
 	p = int64(1000000007)
@@ -36,7 +39,7 @@ func H(s string, m int) int {
 	var res int64
 	for idx, char := range s {
 		basePower := pow(x, idx)
-		res = ((res + int64(char)*basePower) % p + p) % p
+		res = ((res+int64(char)*basePower)%p + p) % p
 	}
 	return int(res % int64(m))
 }
@@ -77,6 +80,7 @@ func (hc hashChain) del(content string) {
 		for idx, value := range chain {
 			if value == content {
 				hc.chains[key] = RemoveIndex(chain, idx)
+				return
 			}
 		}
 	}
