@@ -11,7 +11,7 @@ def is_bst(root, lower_bound, higher_bound):
     
     if lower_bound is not None and root.key <= lower_bound:
         return False
-    if higher_bound is not None and root.key >= higher_bound:
+    if higher_bound is not None and root.key > higher_bound:
         return False
     
     return is_bst(root.left, lower_bound, root.key) and is_bst(root.right, root.key, higher_bound)

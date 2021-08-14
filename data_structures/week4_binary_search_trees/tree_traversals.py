@@ -5,34 +5,75 @@ class Node:
         self.right = right
 
 
+# def inorder_traversal(root):
+#     if not root:
+#         return []
+#     res = []
+
+#     res.extend(inorder_traversal(root.left))
+#     res.append(root.key)
+#     res.extend(inorder_traversal(root.right))
+#     return res
+
+
 def inorder_traversal(root):
     if not root:
         return []
-    res = []
-    res.extend(inorder_traversal(root.left))
-    res.append(root.key)
-    res.extend(inorder_traversal(root.right))
-    return res
+    stack = []
+
+    def inorder(node):
+        if node:
+            inorder(node.left)
+            stack.append(node.key)
+            inorder(node.right)
+    inorder(root)
+    return stack
+
+
+# def preorder_traversal(root):
+#     if not root:
+#         return []
+#     res = []
+#     res.append(root.key)
+#     res.extend(preorder_traversal(root.left))
+#     res.extend(preorder_traversal(root.right))
+#     return res
 
 
 def preorder_traversal(root):
     if not root:
         return []
-    res = []
-    res.append(root.key)
-    res.extend(preorder_traversal(root.left))
-    res.extend(preorder_traversal(root.right))
-    return res
+    stack = []
+    def preorder(node):
+        if node:
+            stack.append(node.key)
+            preorder(node.left)
+            preorder(node.right)
+    preorder(root)
+    return stack
+
+
+# def postorder_traversal(root):
+#     if not root:
+#         return []
+#     res = []
+#     res.extend(postorder_traversal(root.left))
+#     res.extend(postorder_traversal(root.right))
+#     res.append(root.key)
+#     return res
 
 
 def postorder_traversal(root):
     if not root:
         return []
-    res = []
-    res.extend(postorder_traversal(root.left))
-    res.extend(postorder_traversal(root.right))
-    res.append(root.key)
-    return res
+    stack = []
+    def postorder(node):
+        if node:
+            postorder(node.left)
+            postorder(node.right)
+            stack.append(node.key)
+    postorder(root)
+    return stack
 
 
 if __name__ == '__main__':
