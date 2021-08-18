@@ -1,15 +1,19 @@
-def reachability(node1, node2, edges, res=0, visited=None):
-    if not visited:
-        visited = []
-    visited.append(node1)
-    nodes = edges[node1]
+visited_edges = []
+
+def reachability(node1, node2, edges, res=0):
+    nodes = edges.get(node1)
+    if not nodes:
+        return 0
     for node in nodes:
-        if node in visited:
+        visited_edge1, visited_edge2 = (node1, node), (node2, node)
+        if visited_edge1 in visited_edges or visited_edge2 in visited_edges:
             continue
+        visited_edges.append(visited_edge1)
+        visited_edges.append(visited_edge2)
         if node == node2:
             res += 1
         else:
-            res += reachability(node, node2, edges, res, visited)
+            res = reachability(node, node2, edges, res)
     return res
 
 
