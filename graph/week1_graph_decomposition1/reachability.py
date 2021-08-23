@@ -1,9 +1,8 @@
-visited_edges = []
-
-def reachability(node1, node2, edges, res=0):
+def reachability(node1, node2, edges, visited_edges):
     nodes = edges.get(node1)
     if not nodes:
         return 0
+    res = 0
     for node in nodes:
         visited_edge1, visited_edge2 = (node1, node), (node2, node)
         if visited_edge1 in visited_edges or visited_edge2 in visited_edges:
@@ -13,7 +12,7 @@ def reachability(node1, node2, edges, res=0):
         if node == node2:
             res += 1
         else:
-            res = reachability(node, node2, edges, res)
+            res += reachability(node, node2, edges, visited_edges)
     return res
 
 
@@ -33,4 +32,4 @@ if __name__ == '__main__':
         else:
             edges[input_edge[1]] = [input_edge[0]]
     nodes = [int(i) for i in input().strip().split(' ')]
-    print(reachability(nodes[0], nodes[1], edges))
+    print(reachability(nodes[0], nodes[1], edges, []))
