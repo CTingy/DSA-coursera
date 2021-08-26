@@ -1,3 +1,5 @@
+# WARN: counter result cannot represent the all the possibilities.
+# If want to find all possible route, one pass is not enough. 
 
 def BFS(graph, start, end):
     counter = [0 for _ in range(len(graph))]

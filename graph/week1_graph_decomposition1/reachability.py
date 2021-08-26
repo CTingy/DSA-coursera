@@ -1,3 +1,6 @@
+# WARN: counter result cannot represent the all the possibilities.
+# If want to find all possible route, one pass is not enough. 
+
 def reachability(node1, node2, edges, visited_edges):
     nodes = edges.get(node1)
     if not nodes:

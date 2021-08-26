@@ -1,5 +1,7 @@
-
 # ref: https://github.com/Sonia-96/Coursera-Data_Structures_and_Algorithms/blob/master/3-Algorithms%20on%20Graphs/Week1-Undirected%20Graphs/1-reachability.py
+
+# WARN: counter result cannot represent the all the possibilities.
+# If want to find all possible route, one pass is not enough. 
 
 def reach(adj, visited, x, y):
     visited[x][0] = True
