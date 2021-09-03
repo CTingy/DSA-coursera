@@ -35,6 +35,9 @@ def Dijkstra(graph, start_node, end_node):
 if __name__ == '__main__':
     # input 1 is the number of vertices, input 2 is the number of edges
     n_vertices , n_graph = map(int, input().split())
+    
+    # In the begining, I use array as a hash map, but when edges number is low, but n is large
+    # use array would increase the time usage of array iteration
     graph = defaultdict(dict)
     for _ in range(n_graph):
         start, end, weight = map(int, input().split())
