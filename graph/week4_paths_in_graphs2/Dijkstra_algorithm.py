@@ -1,3 +1,5 @@
+# best practice is to use priority queue
+
 from collections import defaultdict
 
 
